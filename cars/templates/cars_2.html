@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CARROS DO LUCAO</title>
+    <style>
+        body {
+            font-family: 'Helvetica', Arial, sans-serif;
+            font-size: 16px;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 32px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .search-bar {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .car-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .car-card {
+            width: 300px;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .car-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .car-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .car-description {
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 12px;
+            font-size: 16px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #FF8000;
+            color: #fff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>CARROS DO LUCAO</h1>
+
+    <div class="search-bar">
+        <form action="{% url 'cars_list' %}" method="GET">
+            <input type="text" name="search" placeholder="Digite a marca, modelo ou ano do carro" required>
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+
+    <div class="car-list">
+        {% for car in cars %}
+        <div class="car-card">
+            <img class="car-image" src="{{ car.photo.url }}" alt="{{ car.model }} - {{ car.brand }}">
+            <h2 class="car-title">{{ car.title }}</h2>
+            <h2>{{ car.brand }} {{ car.model }}</h2>
+            <p>{{ car.factory_year }} - R$ {{ car.value }}</p>
+        </div>
+        {% empty %}
+        <p>Nenhum carro encontrado.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
